@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>To-do list</title>
+   <link rel="stylesheet" href="css/all.min.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+      rel="stylesheet">
+   <style>
+      * {
+         box-sizing: border-box;
+         margin: 0;
+         padding: 0;
+         font-family: "Merriweather", serif;
+         font-weight: normal;
+         scroll-behavior: smooth;
+
+      }
+
+      ul {
+         padding: 0;
+         margin: 0;
+         list-style: none;
+      }
+
+      body {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         position: relative;
+         background-color: black;
+      }
+
+      .parent {
+         background-color: white;
+         width: 250px;
+         border-radius: 10px;
+      }
+
+      .parent .title {
+         margin: 10px auto 0px;
+         width: 90%;
+
+      }
+
+      .parent .title h2 {
+         font-size: 15px;
+      }
+
+      .parent form {
+         width: 90%;
+         margin: 10px auto;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+      }
+
+      .parent form input {
+         border: 1px solid rgba(0, 0, 0, 0.267);
+         font-size: 10px;
+         padding: 2px 5px;
+         flex-basis: 85%;
+         margin-right: 5px;
+         border-radius: 4px;
+
+      }
+
+      .parent form input:focus {
+         outline: none;
+      }
+
+      .parent form button {
+         flex: 1;
+         color: white;
+         border: none;
+         padding: 2px 4px;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: 0.3s;
+         background-color: rgb(6, 134, 6);
+      }
+
+      .parent form button:hover {
+         background-color: green;
+      }
+
+      .parent ul {
+         width: 90%;
+         margin: 10px auto;
+      }
+
+      .parent ul li {
+         display: flex;
+         margin-bottom: 7px;
+         justify-content: center;
+         align-items: center;
+      }
+
+      .parent ul li p {
+         font-size: 13px;
+         font-weight: 400;
+         text-transform: capitalize;
+         flex-basis: 80%;
+         overflow-x: auto;
+      }
+
+      .parent ul li span {
+         margin-left: auto;
+      }
+
+      .parent ul li span i {
+         cursor: pointer;
+      }
+
+      .parent ul li span i:first-child {
+         font-size: 13px;
+         color: rgb(19, 150, 19);
+      }
+
+      .parent ul li span i:first-child:hover {
+         color: green;
+      }
+
+      .parent ul li span i:last-child {
+         font-size: 12px;
+         margin-left: 5px;
+         color: red;
+      }
+
+      .parent ul li span i:last-child:hover {
+         color: rgb(175, 12, 12);
+      }
+
+      .text {
+         text-decoration: line-through;
+         color: #777;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="parent">
+      <div class="title">
+         <h2>Enter your Task</h2>
+      </div>
+      <form action="">
+         <input type="text" id="input" placeholder="Enter Task">
+         <button id="but">Add</button>
+      </form>
+      <ul id="list">
+      </ul>
+   </div>
+   <script>
+      let input = document.getElementById("input");
+      let button = document.getElementById("but");
+      let ul = document.getElementById("list");
+      let del;
+      document.forms[0].addEventListener("submit", function (e) {
+         e.preventDefault();
+      });
+      button.addEventListener("click", function () {
+         if (input.value != "") {
+            let li = document.createElement("li");
+            let p = document.createElement("p");
+            p.append(input.value);
+            li.appendChild(p);
+            let span = document.createElement("span");
+            let iOne = document.createElement("i");
+            iOne.classList.add("fa-solid", "fa-check")
+            span.appendChild(iOne);
+            let iTwo = document.createElement("i");
+            iTwo.classList.add("fa-solid", "fa-x")
+            span.appendChild(iTwo);
+            li.appendChild(span);
+            ul.appendChild(li);
+            input.value = ""
+         }
+      });
+      ul.addEventListener("click", function (e) {
+         if (e.target.classList.contains("fa-check")) {
+            e.target.parentElement.previousElementSibling.classList.toggle("text");
+         } else if (e.target.classList.contains("fa-x")) {
+            e.target.parentElement.parentElement.remove();
+         }
+      })
+
+   </script>
+</body>
+
+</html>
