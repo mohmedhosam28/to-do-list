@@ -41,6 +41,7 @@
       .parent {
          background-color: white;
          width: 250px;
+         position: relative;
          border-radius: 10px;
       }
 
@@ -142,6 +143,28 @@
          text-decoration: line-through;
          color: #777;
       }
+
+      .parent .fa-solid.fa-trash {
+         color: rgb(211, 69, 69);
+         width: 25px;
+         height: 25px;
+         font-size: 12px;
+         border-radius: 50%;
+         background: rgb(244, 241, 241);
+         position: absolute;
+         right: 5px;
+         top: 5px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         transition: 0.3s;
+         /* visibility: hidden; */
+      }
+
+      .parent .fa-solid.fa-trash:hover {
+         color: rgb(247, 31, 31);
+      }
    </style>
 </head>
 
@@ -156,11 +179,13 @@
       </form>
       <ul id="list">
       </ul>
+      <i class="fa-solid fa-trash"></i>
    </div>
    <script>
       let input = document.getElementById("input");
       let button = document.getElementById("but");
-      let ul = document.getElementById("list");
+      let ul = document.querySelectorAll("ul")[0];
+      let liList = document.querySelectorAll("li");
       let del;
       document.forms[0].addEventListener("submit", function (e) {
          e.preventDefault();
@@ -190,7 +215,16 @@
             e.target.parentElement.parentElement.remove();
          }
       })
-
+      let trash = document.querySelector(".parent .fa-solid.fa-trash");
+      trash.addEventListener("click", function () {
+         let liList = document.querySelectorAll("li");
+         console.log(liList.length);
+         if (liList.length != 0) {
+            liList.forEach(function (el) {
+               el.remove();
+            })
+         }
+      })
    </script>
 </body>
 
